@@ -7,7 +7,7 @@
     padding-bottom: 0;
 }
 .navbar .logo {
-    width: 150px;
+    width: 100px;
 
 }
 .navbar-menu{
@@ -47,9 +47,12 @@ background-color: #fff4f2;
     
 }
 
+.navbar-cart {
+    width: 30px;
+    height: auto;
+}
+
 .navbar-search-icon {
-    width: 22px;
-    height: 22px;
     object-fit: cover;
     position: relative;
 }
