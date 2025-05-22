@@ -8,6 +8,9 @@ const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -16,6 +19,14 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
 
   }
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter" && searchTerm.trim() !== "") {
+      navigate(`/search?q=${searchTerm}`);
+      setShowSearch(false); // Ẩn ô tìm kiếm
+      setSearchTerm(""); // Reset ô tìm kiếm
+    }
+  };
 
   return (
     <div className="navbar">
@@ -37,7 +48,7 @@ const Navbar = ({ setShowLogin }) => {
         >
           menu
         </a>
-        
+
         <a
           href="#footer"
           onClick={() => setMenu("contact-us")}
@@ -47,7 +58,26 @@ const Navbar = ({ setShowLogin }) => {
         </a>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        {/* <img src={assets.search_icon} alt="" /> */}
+        <div className="navbar-search">
+          <img
+            src={assets.search_icon}
+            alt="search"
+            onClick={() => setShowSearch(!showSearch)}
+            style={{ cursor: "pointer" }}
+          />
+          {showSearch && (
+            <input
+              type="text"
+              placeholder="Search food..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearch}
+              className="search-input"
+            />
+          )}
+        </div>
+
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img className="navbar-cart" src={assets.basket_icon} alt="" />
@@ -60,7 +90,7 @@ const Navbar = ({ setShowLogin }) => {
           <div className="navbar-profile">
             <img src={assets.profile_icon} alt="" />
             <ul className="nav-profile-dropdown">
-              <li>
+              <li onClick={() => navigate('/myorders')}>
                 <img src={assets.bag_icon} alt="" />
                 Orders
               </li>

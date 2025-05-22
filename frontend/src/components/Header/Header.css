@@ -40,6 +40,30 @@
     font-size: max(1vw, 13px);
     border-radius: 50px;
 }
+
+a.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border: 2px solid black;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a.button-link:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: black;
+}
+
+a.button-link.active {
+  background-color: black;
+  color: white;
+}
+
+
 @media (max-width: 1050px) {
     .header {
         height: 38vw;

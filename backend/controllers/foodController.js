@@ -51,4 +51,19 @@ const removeFood = async (req, res) => {
 
 }
 
-export { addFood , listFood, removeFood};
+
+const searchFood = async (req, res) => {
+  const query = req.query.q;
+
+  try {
+    const results = await foodModel.find({
+      name: { $regex: query, $options: "i" }, // "i" = không phân biệt hoa thường
+    });
+
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: "Search failed", details: err.message });
+  }
+};
+
+export { addFood , listFood, removeFood, searchFood};

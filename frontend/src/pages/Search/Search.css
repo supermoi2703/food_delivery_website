@@ -1,0 +1,94 @@
+.search-page {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.search-page-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* khoảng cách giữa các item */
+}
+
+.search-result-item {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-result-item:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+.search-result-image {
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  flex-shrink: 0;
+}
+
+.search-result-details {
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.search-result-name {
+  font-size: 22px;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+
+.search-result-description {
+  font-size: 15px;
+  margin: 0;
+  color: #555;
+  line-height: 1.5;
+  max-height: 4.5em; /* Khoảng 3 dòng */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-no-results {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin-top: 40px;
+}
+
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto; /* Đẩy counter sang bên phải */
+}
+
+.counter img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.counter img:hover {
+  transform: scale(1.1);
+}

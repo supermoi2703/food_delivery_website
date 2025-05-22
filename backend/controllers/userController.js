@@ -78,4 +78,30 @@ const registerUser = async (req, res) => {
     }
 }
 
-export {loginUser, registerUser}
+// get all users
+const listUser = async (req, res) => {
+  try {
+    const users = await userModel.find({}, { password: 0 }); 
+    res.json({ success: true, data: users });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Failed to fetch users." });
+  }
+};
+
+const removeUser = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const result = await userModel.findByIdAndDelete(id);
+    if (result) {
+      res.json({ success: true, message: "User removed successfully." });
+    } else {
+      res.json({ success: false, message: "User not found." });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error removing user." });
+  }
+};
+
+export {loginUser, registerUser, listUser, removeUser}
