@@ -27,6 +27,11 @@
     border-color: #B5292F;
 }
 
+.icon-user{
+    width: 28px;
+    height: auto;
+}
+
 @media (max-width:900px){
     .sidebar-option p {
         display: none;

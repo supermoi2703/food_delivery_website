@@ -20,26 +20,19 @@ const placeOrder = async (req, res) => {
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
-        const line_items = req.body.items.map((item) => ({
-            price_data: {
-                currency: "usd",
-                product_data: {
-                    name: item.name
+
+        const line_items = [
+            {
+                price_data: {
+                    currency: "usd",
+                    product_data: {
+                        name: "Total Payment"
+                    },
+                    unit_amount: Math.round(req.body.amount * 100) // convert từ USD sang cent
                 },
-                unit_amount: item.price * 100 // Price in cents (1USD = 100cents)
-            },
-            quantity: item.quantity
-        }))
-        line_items.push({
-            price_data: {
-                currency: "usd",
-                product_data: {
-                    name: "Delivery Charges"
-                },
-                unit_amount: 2 * 100 // Price in cents (1USD = 100cents)
-            },
-            quantity: 1
-        });
+                quantity: 1
+            }
+        ];
 
         const session = await stripe.checkout.sessions.create({
             line_items: line_items,

@@ -1,12 +1,34 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url } =
+  const [promoCode, setPromoCode] = useState("");
+  const [promoMessage, setPromoMessage] = useState("");
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url, discount, setDiscount } =
     useContext(StoreContext);
   const navigate = useNavigate();
+
+  const applyPromoCode = async () => {
+    try {
+      const response = await fetch(`${url}/api/promocode/validate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: promoCode, totalAmount: getTotalCartAmount() })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setDiscount(data.discount);
+        setPromoMessage(`Promo applied! You saved $${data.discount}`);
+      } else {
+        setPromoMessage(data.message);
+      }
+    } catch (err) {
+      setPromoMessage("Error applying promo code");
+    }
+  };
 
   return (
     <div className="cart">
@@ -49,6 +71,12 @@ const Cart = () => {
               <p>Subtotal</p>
               <p>${getTotalCartAmount()}</p>
             </div>
+            {discount > 0 && (
+              <div className="cart-total-details">
+                <p>Discount</p>
+                <p>-${discount}</p>
+              </div>
+            )}
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
@@ -58,7 +86,10 @@ const Cart = () => {
             <div className="cart-total-details">
               <b>Total</b>
               <b>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+                $
+                {getTotalCartAmount() === 0
+                  ? 0
+                  : getTotalCartAmount() + 2 - discount}
               </b>
             </div>
           </div>
@@ -70,9 +101,15 @@ const Cart = () => {
           <div>
             <p>If you have a promo code, Enter it here</p>
             <div className="cart-promocode-input">
-              <input type="text" placeholder="promo code" />
-              <button>Submit</button>
+              <input
+                type="text"
+                placeholder="promo code"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+              />
+              <button onClick={applyPromoCode}>Submit</button>
             </div>
+            {promoMessage && <p className="promo-message">{promoMessage}</p>}
           </div>
         </div>
       </div>

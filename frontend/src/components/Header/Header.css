@@ -22,9 +22,9 @@
 }
 
 .header-contents h2 {
-    font-weight: 500;
+    font-weight: 5500;
     color: black;
-    font-size: max(4.5vw, 22px);
+    font-size: max(3.5vw, 22px);
 }
 
 .header-contents p {
@@ -47,7 +47,6 @@ a.button-link {
   background-color: white;
   color: black;
   text-decoration: none;
-  border: 2px solid black;
   border-radius: 6px;
   font-weight: 600;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -55,7 +54,7 @@ a.button-link {
 
 a.button-link:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  color: black;
+  color: white;
 }
 
 a.button-link.active {

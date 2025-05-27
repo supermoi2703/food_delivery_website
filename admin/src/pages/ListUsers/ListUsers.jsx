@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 const ListUsers = ({ url }) => {
   const [users, setUsers] = useState([]);
 
-  // Sử dụng POST để gọi listUser vì backend định nghĩa route là POST /listusers
   const fetchUsers = async () => {
     try {
       const response = await axios.post(`${url}/api/user/listusers`);
@@ -28,7 +27,7 @@ const ListUsers = ({ url }) => {
       const response = await axios.post(`${url}/api/user/removeuser`, { id: userId });
       if (response.data.success) {
         toast.success(response.data.message);
-        fetchUsers(); // load lại danh sách sau khi xóa
+        fetchUsers(); 
       } else {
         toast.error("Failed to remove user.");
       }
