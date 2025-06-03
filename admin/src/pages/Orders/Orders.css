@@ -28,6 +28,28 @@
     padding: 10px;
     outline: none;
 }
+
+.order-status-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.order-delete-btn {
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s ease-in-out;
+}
+
+.order-delete-btn:hover {
+  transform: scale(1.2);
+}
+
+
+
 @media (max-width: 1000px) {
     .order-item {
       font-size: 12px;

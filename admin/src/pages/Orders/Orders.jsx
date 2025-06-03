@@ -9,6 +9,22 @@ import { assets } from "../../assets/assets";
 const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
 
+  const deleteOrderHandler = async (orderId) => {
+    try {
+      const response = await axios.post(url + "/api/order/delete", {
+        orderId,
+      });
+      if (response.data.success) {
+        toast.success("Order deleted");
+        await fetchAllOrders();
+      } else {
+        toast.error("Failed to delete order");
+      }
+    } catch (error) {
+      toast.error("Error deleting order");
+    }
+  };
+
   const fetchAllOrders = async () => {
     const response = await axios.get(url + "/api/order/list");
     if (response.data.success) {
@@ -69,14 +85,18 @@ const Orders = ({ url }) => {
             </div>
             <p>Items : {order.items.length} </p>
             <p>${order.amount}</p>
-            <select
-              onChange={(event) => statusHandler(event, order._id)}
-              value={order.status}
-            >
-              <option value="Food Processing">Food Processing</option>
-              <option value="Out for delivery">Out for delivery</option>
-              <option value="Delivered">Delivered</option>
-            </select>
+            <div className="order-status-actions">
+              <select
+                onChange={(event) => statusHandler(event, order._id)}
+                value={order.status}
+              >
+                <option value="Food Processing">Food Processing</option>
+                <option value="Out for delivery">Out for delivery</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <p onClick={() => deleteOrderHandler(order._id)} className="order-delete-btn cursor">x</p>
+            </div>
           </div>
         ))}
       </div>

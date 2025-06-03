@@ -101,5 +101,14 @@ const updateStatus = async (req, res) => {
 
 }
 
+//api for deleting order
+const deleteOrder = async (req, res) => {
+  try {
+    await orderModel.findByIdAndDelete(req.body.orderId);
+    res.json({ success: true, message: "Order deleted successfully" });
+  } catch (error) {
+    res.json({ success: false, message: "Failed to delete order" });
+  }
+};
 
-export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus, deleteOrder };

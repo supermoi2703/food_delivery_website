@@ -14,12 +14,13 @@ const url = "http://localhost:4000";
 
 const App = () => {
   return (
+    <>  
     <div>
       <ToastContainer/>
       <Navbar/>
       <hr/>
       <div className="app-content">
-        <Sidebar/>
+        <Sidebar/>      
         <Routes>
           <Route path="/add" element={<Add url={url} />} />
           <Route path='/add-discount' element={<AddDiscount url={url} />} />
@@ -29,6 +30,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
+    </>
   )
 };
 

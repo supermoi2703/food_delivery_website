@@ -21,23 +21,34 @@ const LoginPopup = ({ setShowLogin }) => {
   };
 
   const onLogin = async (event) => {
-    event.preventDefault();
-    let newUrl = url;
-    if (currState === "Login") {
-      newUrl += "/api/user/login";
-    } else {
-      newUrl += "/api/user/register";
-    }
+  event.preventDefault();
+  let newUrl = url;
+  if (currState === "Login") {
+    newUrl += "/api/user/login";
+  } else {
+    newUrl += "/api/user/register";
+  }
 
+  try {
     const response = await axios.post(newUrl, data);
     if (response.data.success) {
       setToken(response.data.token);
       localStorage.setItem("token", response.data.token);
-      setShowLogin(false);
+
+      // role is admin, redirect admin homehome
+      if (response.data.role === "admin") {
+        window.location.href = "http://localhost:5173";  
+      } else {
+        setShowLogin(false); 
+      }
     } else {
       alert(response.data.message);
     }
-  };
+  } catch (error) {
+    alert("Đã có lỗi xảy ra, vui lòng thử lại.");
+    console.error(error);
+  }
+};
 
   return (
     <div className="login-popup">
